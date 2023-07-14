@@ -1,16 +1,16 @@
-import React from 'react'
-import Trips from './components/trips';
+import React from "react";
+import Trips from "./components/trips";
 
 export const metadata = {
-    title: "About", 
+  title: "About",
 };
 
 const page = () => {
   return (
     <div>
-        <Trips/>
+      <Trips />
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default page;

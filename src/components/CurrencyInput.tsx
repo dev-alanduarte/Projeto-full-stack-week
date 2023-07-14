@@ -7,15 +7,15 @@ interface InputProps extends CurrencyInputProps {
 }
 
 function CurrencyInput({
-    className,
-    error,
-    errorMessage,
-    ...props
+  className,
+  error,
+  errorMessage,
+  ...props
 }: InputProps) {
   const inputClassName = twMerge(
-      "rounded-lg border border-gray-300 bg-white p-2 text-sm font-normal text-dark placeholder-black placeholder-opacity-20 outline-none transition-all focus:ring-1 focus:ring-primary",
-      error ? "border-red-500" : "",
-      className
+    "rounded-lg border border-gray-300 bg-white p-2 text-sm font-normal text-dark placeholder-black placeholder-opacity-20 outline-none transition-all focus:ring-1 focus:ring-primary",
+    error ? "border-red-500" : "",
+    className
   );
 
   return (

@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import QuickSearch from "./components/QuickSearch";
 import RecommendedTrips from "./components/RecommendTrips";
