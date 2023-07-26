@@ -10,6 +10,7 @@ import { difference } from "next/dist/build/utils";
 import { differenceInDays } from "date-fns";
 
 interface TripReservationProps {
+  tripId: string;
   tripStartDate: Date;
   tripEndDate: Date;
   maxGuests: number;
@@ -23,25 +24,38 @@ interface TripReservationForm {
 }
 
 const TripReservation = ({
+  tripId,
   maxGuests,
   tripStartDate,
   tripEndDate,
-  pricePerDay
+  pricePerDay,
 }: TripReservationProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
     control,
-    watch
+    watch,
   } = useForm<TripReservationForm>();
 
-  const onSubmit = (data: any) => {
-    console.log({ data });
+  const onSubmit = async (data: TripReservationForm) => {
+    const response = await fetch("http://localhost:3000/api/trips/check", {
+      method: "POST",
+      body: Buffer.from(
+        JSON.stringify({
+          startDate: data.startDate,
+          endDate: data.endDate,
+          tripId,
+        })
+      ),
+    });
+
+    const res = await response.json();
+    console.log({ res });
   };
 
-  const startDate = watch("startDate")
-  const endDate = watch("endDate")
+  const startDate = watch("startDate");
+  const endDate = watch("endDate");
 
   return (
     <div className="flex flex-col px-5">
@@ -107,8 +121,10 @@ const TripReservation = ({
 
       <div className="flex justify-between mt-3">
         <p className="font-medium text-sm text-primaryDarker">Total:</p>
-        <p className="font-medium text-sm text-primaryDarker">{startDate && endDate ? 
-        `R$${differenceInDays(endDate, startDate) * pricePerDay}`: 'R$0'} 
+        <p className="font-medium text-sm text-primaryDarker">
+          {startDate && endDate
+            ? `R$${differenceInDays(endDate, startDate) * pricePerDay}`
+            : "R$0"}
         </p>
       </div>
 
